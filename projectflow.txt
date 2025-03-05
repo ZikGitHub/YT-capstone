@@ -1,0 +1,5 @@
+-------------------Setting up project structure----------------------
+
+1. Create repo, clone it locally.
+2. Create a Virtual environment named "atlas" python 3.10
+3. Activate virtual environment
