@@ -171,3 +171,4 @@ cython_debug/
 .pypirc
 cred.txt
 notebooks/
+local_s3/
