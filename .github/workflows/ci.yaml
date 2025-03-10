@@ -37,6 +37,15 @@ jobs:
         run: |
           dvc remote modify origin --local auth token
           dvc remote modify origin --local token "$DAGSHUB_TOKEN"
+    
+      - name: Configure DVC remote
+        env:
+          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+        run: |
+          dvc remote add -d origin https://dagshub.com/ZikGitHub/YT-capstone.dvc
+          dvc remote modify origin --local auth token
+          dvc remote modify origin --local token "$DAGSHUB_TOKEN"
+
       
       - name: run pipeline
         run: |
