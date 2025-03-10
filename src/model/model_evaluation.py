@@ -32,7 +32,7 @@ from src.logger import logging
 # Below code block is for local use
 # -------------------------------------------------------------------------------------
 mlflow.set_tracking_uri('https://dagshub.com/ZikGitHub/YT-capstone.mlflow')
-dagshub.init(repo_owner='ZikGitHub', repo_name='YT-capstone', mlflow=True)
+# dagshub.init(repo_owner='ZikGitHub', repo_name='YT-capstone', mlflow=True)
 # -------------------------------------------------------------------------------------
 
 

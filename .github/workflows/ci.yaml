@@ -29,11 +29,16 @@ jobs:
       
       - name: Debug print secret
         run: |
-          echo "Secret CAPSTONE_TEST: ${{ secrets.CAPSTONE_TEST }}"
+          echo "Secret DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}"
 
       - name: run pipeline
         env:
-          dagshub_token: ${{ secrets.CAPSTONE_TEST }}
+          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+        run: |
+          dvc remote modify origin --local auth token
+          dvc remote modify origin --local token "$DAGSHUB_TOKEN"
+      
+      - name: run pipeline
         run: |
           dvc repro
 
