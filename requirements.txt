@@ -155,7 +155,7 @@ pyparsing==3.1.2
 python-dateutil 
 python-slugify==8.0.4
 pytz==2024.1
-pywin32==307
+# pywin32==307
 PyYAML==6.0.1
 pyzmq 
 querystring-parser==1.2.4
