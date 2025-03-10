@@ -177,8 +177,8 @@ notebooks/
 
 local_s3/
 
-data/
-
 models/
+data/raw/
+data/processed/
 
 data/interim
