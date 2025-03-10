@@ -26,6 +26,10 @@ jobs:
       - name: install dependencies
         run: |
           pip install -r requirements.txt
+      
+      - name: Debug print secret
+        run: |
+          echo "Secret CAPSTONE_TEST: ${{ secrets.CAPSTONE_TEST }}"
 
       - name: run pipeline
         env:
