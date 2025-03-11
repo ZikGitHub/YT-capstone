@@ -16,11 +16,22 @@ from nltk.corpus import stopwords
 import string
 import re
 import dagshub
+from dotenv import load_dotenv
+import numpy as np
 
 import warnings
 
 warnings.simplefilter("ignore", UserWarning)
 warnings.filterwarnings("ignore")
+
+# Define the path of the .env file
+project_dir = os.path.join(os.path.dirname(__file__), os.pardir)
+
+# Going up two directory from the file's directory.
+dotenv_path = os.path.join(project_dir, ".env")
+
+# Load the environment variables from the .env file
+load_dotenv(dotenv_path)
 
 
 def lemmatization(text):
