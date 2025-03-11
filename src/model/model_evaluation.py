@@ -1,3 +1,4 @@
+import dagshub.auth
 import numpy as np
 import pandas as pd
 import pickle
@@ -14,25 +15,25 @@ from src.logger import logging
 # Below code block is for production use
 # -------------------------------------------------------------------------------------
 # Set up DagsHub credentials for MLflow tracking
-# dagshub_token = os.getenv("CAPSTONE_TEST")
-# if not dagshub_token:
-#     raise EnvironmentError("CAPSTONE_TEST environment variable is not set")
+dagshub_token = os.getenv("DAGSHUB_TOKEN")
+if not dagshub_token:
+    raise EnvironmentError("DAGSHUB_TOKEN environment variable is not set")
 
-# os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
-# os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
+os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
+os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
 
-# dagshub_url = "https://dagshub.com"
-# repo_owner = "ZikGitHub"
-# repo_name = "YT-capstone"
+dagshub_url = "https://dagshub.com"
+repo_owner = "ZikGitHub"
+repo_name = "YT-capstone"
 
-# # Set up MLflow tracking URI
-# mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
+# Set up MLflow tracking URI
+mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
 # -------------------------------------------------------------------------------------
 
 # Below code block is for local use
 # -------------------------------------------------------------------------------------
-mlflow.set_tracking_uri('https://dagshub.com/ZikGitHub/YT-capstone.mlflow')
-dagshub.init(repo_owner='ZikGitHub', repo_name='YT-capstone', mlflow=True, dvc=True)
+# mlflow.set_tracking_uri('https://dagshub.com/ZikGitHub/YT-capstone.mlflow')
+# dagshub.init(repo_owner='ZikGitHub', repo_name='YT-capstone', mlflow=True, dvc=True)
 # -------------------------------------------------------------------------------------
 
 
@@ -68,7 +69,6 @@ def evaluate_model(clf, X_test: np.ndarray, y_test: np.ndarray) -> dict:
     try:
         y_pred = clf.predict(X_test)
         y_pred_proba = clf.predict_proba(X_test)[:, 1]
-
         accuracy = accuracy_score(y_test, y_pred)
         precision = precision_score(y_test, y_pred)
         recall = recall_score(y_test, y_pred)
