@@ -182,4 +182,3 @@ data/raw/
 data/processed/
 
 data/interim
-dvc.lock
