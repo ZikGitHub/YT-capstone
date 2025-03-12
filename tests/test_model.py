@@ -6,6 +6,18 @@ import os
 import pandas as pd
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import pickle
+from dotenv import load_dotenv
+
+# Define the path of the .env file
+project_dir = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
+
+# Going up two directory from the file's directory.
+print(project_dir)
+
+dotenv_path = os.path.join(project_dir, ".env")
+
+# Load the environment variables from the .env file
+load_dotenv(dotenv_path)
 
 class TestModelLoading(unittest.TestCase):
 
