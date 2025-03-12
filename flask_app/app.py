@@ -18,7 +18,7 @@ import re
 import dagshub
 from dotenv import load_dotenv
 import numpy as np
-
+from dotenv import load_dotenv
 import warnings
 
 warnings.simplefilter("ignore", UserWarning)
@@ -102,10 +102,23 @@ def normalize_text(text):
 
 # Below code block is for production use
 # -------------------------------------------------------------------------------------
+
+
+# Define the path of the .env file
+project_dir = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
+
+# Going up two directory from the file's directory.
+print(project_dir)
+
+dotenv_path = os.path.join(project_dir, ".env")
+
+# Load the environment variables from the .env file
+load_dotenv(dotenv_path)
+
 # Set up DagsHub credentials for MLflow tracking
-dagshub_token = os.getenv("DAGHUB_TOKEN")
+dagshub_token = os.getenv("DAGSHUB_TOKEN")
 if not dagshub_token:
-    raise EnvironmentError("DAGHUB_TOKEN environment variable is not set")
+    raise EnvironmentError("DAGSHUB_TOKEN environment variable is not set")
 
 os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
 os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
