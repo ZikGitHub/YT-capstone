@@ -102,15 +102,15 @@ def main():
         test_size = params["data_ingestion"]["test_size"]
         # test_size = 0.2
 
-        # df = load_data(
-        #     data_url="https://raw.githubusercontent.com/vikashishere/Datasets/refs/heads/main/data.csv"
-        # )
-        s3 = s3_connection.s3_operations(
-            bucket_name,
-            aws_access_key_id,
-            aws_secret_access_key,
+        df = load_data(
+            data_url="https://raw.githubusercontent.com/vikashishere/Datasets/refs/heads/main/data.csv"
         )
-        df = s3.fetch_file_from_s3("data.csv")
+        # s3 = s3_connection.s3_operations(
+        #     bucket_name,
+        #     aws_access_key_id,
+        #     aws_secret_access_key,
+        # )
+        # df = s3.fetch_file_from_s3("data.csv")
 
         final_df = preprocess_data(df)
         train_data, test_data = train_test_split(
