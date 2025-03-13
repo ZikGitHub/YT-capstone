@@ -10,6 +10,24 @@ import yaml
 import logging
 from src.logger import logging
 from src.connections import s3_connection
+from dotenv import load_dotenv
+
+# Define the path of the .env file
+project_dir = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
+
+# Going up two directory from the file's directory.
+print(project_dir)
+
+dotenv_path = os.path.join(project_dir, ".env")
+
+# Load the environment variables from the .env file
+load_dotenv(dotenv_path)
+
+
+aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
+aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+bucket_name = os.getenv("BUCKET_NAME")
+ecr_repository_name = os.getenv("ECR_REPOSITORY_NAME")
 
 
 def load_params(params_path: str) -> dict:
@@ -88,9 +106,9 @@ def main():
         #     data_url="https://raw.githubusercontent.com/vikashishere/Datasets/refs/heads/main/data.csv"
         # )
         s3 = s3_connection.s3_operations(
-            "bucket-name",
-            "accesskey",
-            "secretkey",
+            bucket_name,
+            aws_access_key_id,
+            aws_secret_access_key,
         )
         df = s3.fetch_file_from_s3("data.csv")
 
