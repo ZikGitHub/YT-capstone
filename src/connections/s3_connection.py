@@ -3,22 +3,50 @@ import pandas as pd
 import logging
 from src.logger import logging
 from io import StringIO
+from dotenv import load_dotenv
+import os
+
+
+# Define the path of the .env file
+project_dir = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
+
+# Going up two directory from the file's directory.
+print(project_dir)
+
+dotenv_path = os.path.join(project_dir, ".env")
+
+# Load the environment variables from the .env file
+load_dotenv(dotenv_path)
+
+
+aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
+aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+bucket_name = os.getenv("BUCKET_NAME")
+ecr_repository_name = os.getenv("ECR_REPOSITORY_NAME")
+
 
 # # Configure logging
 # logging.basicConfig(level=logging.INFO)
 # logger = logging.getLogger(__name__)
 
 class s3_operations:
-    def __init__(self, bucket_name, aws_access_key, aws_secret_key, region_name="us-east-1"):
+
+    def __init__(
+        self,
+        bucket_name,
+        aws_access_key_id,
+        aws_secret_access_key,
+        region_name="us-east-1",
+    ):
         """
         Initialize the s3_operations class with AWS credentials and S3 bucket details.
         """
         self.bucket_name = bucket_name
         self.s3_client = boto3.client(
-            's3',
-            aws_access_key_id=aws_access_key,
-            aws_secret_access_key=aws_secret_key,
-            region_name=region_name
+            "s3",
+            aws_access_key_id=aws_access_key_id,
+            aws_secret_access_key=aws_secret_access_key,
+            region_name=region_name,
         )
         logging.info("Data Ingestion from S3 bucket initialized")
 
