@@ -105,12 +105,9 @@ def normalize_text(text):
 
 
 # Define the path of the .env file
-project_dir = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
-
-# Going up two directory from the file's directory.
-print(project_dir)
-
+project_dir = os.path.join(os.path.dirname(__file__), os.pardir)
 dotenv_path = os.path.join(project_dir, ".env")
+print("FilePath: ", dotenv_path)
 
 # Load the environment variables from the .env file
 load_dotenv(dotenv_path)
@@ -166,7 +163,7 @@ model_name = "my_model"
 
 def get_latest_model_version(model_name):
     client = mlflow.MlflowClient()
-    latest_version = client.get_latest_versions(model_name, stages=["Staging"])
+    latest_version = client.get_latest_versions(model_name, stages=["Production"])
     if not latest_version:
         latest_version = client.get_latest_versions(model_name, stages=["None"])
     return latest_version[0].version if latest_version else None
