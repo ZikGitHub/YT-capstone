@@ -58,6 +58,13 @@ jobs:
             aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws configure set region ${{ secrets.AWS_REGION }}
             aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+      
+      - name: Verify ECR Repository
+        if: success()
+        run: |
+            aws ecr describe-repositories --repository-names ${{ secrets.ECR_REPOSITORY }} || \
+            aws ecr create-repository --repository-name ${{ secrets.ECR_REPOSITORY }}
+
 
       - name: Build Docker image
         run: |
