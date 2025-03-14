@@ -96,6 +96,10 @@ jobs:
           kubectl create secret generic capstone-secret \
             --from-literal=DAGSHUB_TOKEN=${{ secrets.DAGSHUB_TOKEN }} --dry-run=client -o yaml | kubectl apply -f -
 
+      - name: Replace Placeholder in deployment.yaml
+        run: |
+          sed -i "s|AWS_ACCOUNT_ID|${{ secrets.AWS_ACCOUNT_ID }}|g" deployment.yaml
+
       - name: Deploy to EKS
         run: |
           kubectl apply -f deployment.yaml
